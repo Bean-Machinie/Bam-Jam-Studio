@@ -1,15 +1,18 @@
 import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 
 export default function Login() {
-  const { signIn, signUp, user, loading } = useAuth();
+  const { signIn, signUp, user, loading, error: authError } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [submitting, setSubmitting] = useState(false);
-  const navigate = useNavigate();
+
+  if (!loading && user) {
+    return <Navigate to="/" replace />;
+  }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -26,14 +29,13 @@ export default function Login() {
     }
 
     setSubmitting(false);
-    navigate("/app");
   };
 
   return (
     <div>
       <h1>{mode === "signin" ? "Sign In" : "Sign Up"}</h1>
       {loading && <p>Checking session...</p>}
-      {user && <p>Already signed in as {user.email}</p>}
+      {authError && <p>{authError}</p>}
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">Email</label>

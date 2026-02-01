@@ -1,11 +1,16 @@
 # Bam-Jam-Studio
 
-Minimal Vite + React + TypeScript app that connects to Supabase for auth and a todos table.
+Minimal Vite + React + TypeScript app with Supabase email/password auth.
 
-## Setup
+## Install
 
 ```bash
 npm install
+```
+
+## Run
+
+```bash
 npm run dev
 ```
 
@@ -28,18 +33,3 @@ Required variables (Vite only exposes variables prefixed with `VITE_`):
 
 - `VITE_SUPABASE_URL`
 - `VITE_SUPABASE_ANON_KEY`
-
-## Supabase SQL setup
-
-Run the SQL in `supabase/sql/001_create_todos.sql` inside the Supabase SQL editor:
-
-1. Open your Supabase project.
-2. Go to SQL editor.
-3. Paste the SQL file contents and run.
-
-## Routes
-
-- `/` Home (auth status + links)
-- `/connect` Connection check (env presence + light request)
-- `/login` Sign in / Sign up
-- `/app` Protected todos CRUD app
